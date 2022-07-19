@@ -22,7 +22,7 @@ class LaravelDocServiceProvider extends ServiceProvider
         ], 'laravel-doc-config');
 
         $this->publishes([
-            __DIR__.'/../stubs/Tests/Yapi' => base_path('tests/Yapi'),
+            __DIR__.'/../stubs/Tests/*' => base_path('tests'),
         ], 'laravel-doc-yapi');
 
         $this->registerRoute();
