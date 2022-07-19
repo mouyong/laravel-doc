@@ -23,8 +23,6 @@ trait YapiTrait
 
             $yapi = new YApi($this->app['request'], $response, $dto, $config);
             $yapi->make();
-
-            return $yapi;
         };
 
         if (function_exists('central')) {
