@@ -25,7 +25,8 @@
         "wiki": "https://github.com/mouyong/laravel-doc"
     },
     "require": {
-        "php": ">=8.0"
+        "php": ">=8.0",
+        "cblink/yapi-doc": "^1.1"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
