@@ -36,9 +36,11 @@ openapi 文档的访问路由，默认是 /openapi
 ```
 // 定义路由，实际开发时替换为正式的 method、uri、controller、action
 Route::any('/api/oem-info', [\MouYong\LaravelDoc\Http\Controllers\OpenapiController::class, 'example']);
+Route::get('/api/patients', [\MouYong\LaravelDoc\Http\Controllers\OpenapiController::class, 'example']);
+Route::post('/api/patients', [\MouYong\LaravelDoc\Http\Controllers\OpenapiController::class, 'example']);
 ```
 
-`tests/TestCase`
+`tests/TestCase.php`
 ```php
 <?php
 
@@ -55,7 +57,7 @@ abstract class TestCase extends BaseTestCase
 
 ```
 
-`tests/Feature/Tenant/OemTest`
+`tests/Feature/Tenant/OemTest.php`
 ```php
 <?php
 
@@ -129,6 +131,133 @@ class OemTest extends TestCase
 
 ```
 
+`tests/Feature/Tenant/PatientTest.php`
+```
+<?php
+
+namespace Tests\Feature\Tenant;
+
+use Tests\TestCase;
+use App\Models\Patient;
+use Cblink\YApiDoc\YapiDTO;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Feature\Tenant\Traits\AdminUserTrait;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class PatientTest extends TestCase
+{
+    use AdminUserTrait;
+    
+    public function test_admin_add_patient()
+    {
+        $this->adminLogin();
+        
+        $response = $this->postJson($this->tenantApi('/api/patients'), [
+            'name' => '张三',
+            'gender' => Patient::GENDER_MAN,
+            'mobile' => '13333333333',
+            'address' => '广东省深圳市宝安区 xx 花园',
+            'highest_education' => '',
+            'nation' => '',
+            'birthday' => '',
+            'native_place' => '',
+        ]);
+
+        // $this->assertSuccess($response, [
+        //     'patient_id',
+        //     'user_id',
+        // ]);
+
+        $this->yapi($response, new YapiDTO([
+            'project' => ['default'],
+            'name' => '新增患者',
+            'category' => '患者',
+            'params' => [],
+            'desc' => '',
+            'request' =>[
+                'trans' => [
+                    'name' => '患者姓名',
+                    'gender' => $this->mapDesc('患者性别', Patient::GENDER_MAP),
+                    'mobile' => '患者手机号',
+                    'address' => '患者居住地址，完整的省市区及详细地址。如：广东省深圳市宝安区',
+                    'highest_education' => '学历枚举值',
+                    'nation' => '民族',
+                    'birthday' => '患者生日，格式：2022-02-02 02:02:02',
+                    'native_place' => '患者籍贯，身份证的所属地，如广东、北京',
+                ],
+                'except' => [],
+            ],
+            'response' =>[
+                'trans' => [
+                    'patient_id' => 'patients.id 患者 ID',
+                    'user_id' => 'users.id 用户 ID',
+                ],
+                'except' => [],
+            ],
+        ]));
+    }
+
+    public function test_admin_get_patient_list()
+    {
+        $this->adminLogin();
+        
+        $response = $this->getJson($this->tenantApi('/api/patients'), [
+            'keyword' => '',
+        ]);
+
+        // $this->assertSuccess($response, [
+        //     'patient_id',
+        //     'user_id',
+        // ]);
+
+        $this->yapi($response, new YapiDTO([
+            'project' => ['default'],
+            'name' => '获取患者列表',
+            'category' => '患者',
+            'params' => [],
+            'desc' => '',
+            'request' =>[
+                'trans' => [
+                    'keyword' => '搜索关键词，搜索字段：patients.name',
+                ],
+                'except' => [],
+            ],
+            'response' =>[
+                'trans' => [
+                    'data.*.patient_id' => 'patients.id 患者 ID',
+                    'data.*.user_id' => 'users.id 用户 ID',
+                    'data.*.user_name' => 'users.name',
+                    'data.*.user_mobile' => 'users.mobile 脱敏手机号，如：133****3333',
+                    'data.*.user_gender' => $this->mapDesc('users.gender 用户性别', Patient::GENDER_MAP),
+                    'data.*.user_gender_desc' => '性别文字描述，如：男 具体描述值见 users.gender',
+                ],
+                'except' => [],
+            ],
+        ]));
+    }
+
+    public function test_admin_delete_patient()
+    {
+        $this->markAsRisky();
+    }
+
+    public function test_admin_add_patient_family_info()
+    {
+        $this->markAsRisky();
+    }
+
+    public function test_admin_get_patient_family_list()
+    {
+        $this->markAsRisky();
+    }
+
+    public function test_admin_get_patient_family_detail()
+    {
+        $this->markAsRisky();
+    }
+}
+
+```
 
 ### 3. 同步文档
 
