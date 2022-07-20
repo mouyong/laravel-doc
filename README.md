@@ -57,6 +57,36 @@ abstract class TestCase extends BaseTestCase
 
 ```
 
+`app/Models/Patient.php`
+```
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Patient extends Model
+{
+    /**
+     * 微信小程序性别合法值
+     * 
+     * @see https://developers.weixin.qq.com/miniprogram/dev/api/open-api/user-info/UserInfo.html#number-gender
+     */
+    const GENDER_UNKNOWN = 0;
+    const GENDER_MAN = 1;
+    const GENDER_FEMAN = 2;
+    const GENDER_MAP = [
+        Patient::GENDER_UNKNOWN => '未知',
+        Patient::GENDER_MAN => '男',
+        Patient::GENDER_FEMAN => '女',
+    ];
+
+    use HasFactory;
+}
+
+```
+
 `tests/Feature/Tenant/OemTest.php`
 ```php
 <?php
