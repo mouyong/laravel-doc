@@ -16,4 +16,9 @@ class OpenapiController extends Controller
 
         return file_get_contents(config('yapi.openapi.path', public_path('openapi.json')));
     }
+
+    public function example()
+    {
+        // 空接口，不做任何实际用途
+    }
 }

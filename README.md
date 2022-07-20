@@ -32,6 +32,12 @@ openapi 文档的访问路由，默认是 /openapi
 
 使用示例：
 
+`routes/tenant.php`
+```
+// 定义路由，实际开发时替换为正式的 method、uri、controller、action
+Route::any('/api/oem-info', [\MouYong\LaravelDoc\Http\Controllers\OpenapiController::class, 'example']);
+```
+
 `tests/TestCase`
 ```php
 <?php
@@ -49,6 +55,7 @@ abstract class TestCase extends BaseTestCase
 
 ```
 
+`tests/Feature/Tenant/OemTest`
 ```php
 <?php
 
