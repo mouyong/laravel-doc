@@ -66,7 +66,7 @@ class OemTest extends TestCase
     use AdminUserTrait;
 
     /**
-     * A basic feature test example.
+     * Get tenant oem info.
      *
      * @return void
      */
