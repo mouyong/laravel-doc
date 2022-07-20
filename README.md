@@ -5,13 +5,13 @@
 [![Sponsor me](https://github.com/mouyong/mouyong/blob/master/sponsor-me-button-s.svg?raw=true)](https://github.com/sponsors/mouyong)
 
 
-## Installing
+## 安装
 
 ```shell
 $ composer require mouyong/laravel-doc -vvv
 ```
 
-## Usage
+## 使用
 
 ### 1. 配置文件修改
 
@@ -31,6 +31,23 @@ openapi 文档的访问路由，默认是 /openapi
 文档生成目录：`storage/app/yapi/`
 
 使用示例：
+
+`tests/TestCase`
+```php
+<?php
+
+namespace Tests;
+
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use MouYong\LaravelDoc\Traits\YapiTrait; // here
+
+abstract class TestCase extends BaseTestCase
+{
+    use CreatesApplication;
+    use YapiTrait; // here
+}
+
+```
 
 ```php
 <?php
@@ -57,6 +74,7 @@ class OemTest extends TestCase
     {
         $response = $this->getJson($this->tenantApi('/api/oem-info', false));
 
+         // 断言接口响应数据格式
         $this->assertSuccess($response, [
             'api',
             'tenant_id',
@@ -67,6 +85,7 @@ class OemTest extends TestCase
             'domains',
         ]);
 
+        // 生成 yapi 文档 与 openapi 2.0 文档
         $this->yapi($response, new YapiDTO([
             // 可以同时生成到多个 yapi 项目
             'project' => ['default'],
@@ -109,20 +128,22 @@ class OemTest extends TestCase
 生成文档：`./vendor/bin/phpunit tests/Yapi/YapiTest.php`
 
 1. 文档
-- 可根据需要删除 storage/app/yapi 后重新生成文档
+- 可根据需要删除 `storage/app/yapi` 后重新生成文档
 
-2. yapi
-- 运行生成文档后，会自动同步到 yapi 平台
-- 可在配置文件中关闭同步 yapi 平台
+2. `yapi`
+- 运行生成文档后，会自动同步到 `yapi` 平台
+- 可在配置文件中关闭同步 `yapi` 平台
 
-3. apifox
-- 在 apifox 项目中可开启定时同步，格式为 `openapi/swagger`
-- openapi 版本为 2.0，yapi 平台文档导入暂不支持 openapi 3.0
+3. `apifox`
+- 在 `apifox` 项目中可开启定时同步，格式为 `openapi/swagger`
+- `openapi` 版本为 `2.0`，`yapi` 平台文档导入暂不支持 `openapi 3.0`
 
 
-## 疑问
+## 问答
 
-如有使用疑问，欢迎邮件联系我
+欢迎提交 `issue` 与 `PR`
+
+如有使用疑问，可邮件联系我
 
 
 ## :heart: Sponsor me 
@@ -132,7 +153,7 @@ class OemTest extends TestCase
 如果你喜欢我的项目并想支持它，[点击这里 :heart:](https://github.com/sponsors/mouyong)
 
 
-## Contributing
+## 贡献
 
 You can contribute in one of three ways:
 
@@ -142,6 +163,6 @@ You can contribute in one of three ways:
 
 _The code contribution process is not very formal. You just need to make sure that you follow the PSR-0, PSR-1, and PSR-2 coding guidelines. Any new code contributions must be accompanied by unit tests where applicable._
 
-## License
+## 开源协议
 
 MIT
