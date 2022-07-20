@@ -29,11 +29,18 @@ return [
     // todo: eolink 
     // 1. 在 eolink -> 其他 -> API 文档生成中配置 swagger 源
     // 2. 通过 Open API 触发同步操作
+    // todo:
+    // 1. 引入 https://github.com/mouyong/php-support
+    // 2. 增加 EolinkClient
+    // 3. 在 stubs/Test/Yapi/YapiTest.php 增加触发同步功能。
+    //      - $eolinkJob = config('yapi.eolink.job_class');
+    //      - dispatch_sync(new $eolinkJob(config('yapi')));
     'eolink' => [
         'enable' => false,
         'eo_secret_key' => '',
         'project_id' => '',
         'space_id' => '',
+        'job_class' => '',
     ],
 
     'public' => [
