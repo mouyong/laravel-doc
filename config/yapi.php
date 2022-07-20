@@ -11,6 +11,9 @@ return [
     // 文档合并方式，"normal"(普通模式) , "good"(智能合并), "merge"(完全覆盖)
     'merge' => 'merge',
 
+    // yapi
+    // 1. 查看项目设置 -> 项目配置 -> 项目ID -> 填入 config.default.id 字段 (项目 id 与 url 中的 projectId 相同 /project/{projectId}/setting)
+    // 2. 查看项目设置 -> token配置 -> token (点击复制按钮获取 项目 token)
     'config' => [
         'default' => [
             'id' => 1,
@@ -21,6 +24,16 @@ return [
     'openapi' => [
         'enable' => true, // generate openapi.json
         'path' => public_path('openapi.json'),
+    ],
+
+    // todo: eolink 
+    // 1. 在 eolink -> 其他 -> API 文档生成中配置 swagger 源
+    // 2. 通过 Open API 触发同步操作
+    'eolink' => [
+        'enable' => false,
+        'eo_secret_key' => '',
+        'project_id' => '',
+        'space_id' => '',
     ],
 
     'public' => [
