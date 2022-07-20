@@ -20,5 +20,10 @@ class OpenapiController extends Controller
     public function example()
     {
         // 空接口，不做任何实际用途
+        if (\request()->wantsJson()) {
+            return \response()->json();
+        }
+
+        return \response();
     }
 }
