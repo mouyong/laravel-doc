@@ -129,6 +129,9 @@ class OemTest extends TestCase
 
 1. 文档
 - 可根据需要删除 `storage/app/yapi` 后重新生成文档
+- 可通过 `$this->mapDesc` 将 `XxxModel` 中的常量转为文档中的释义
+- 文档会根据内容 `md5` 进行版本化。避免重复生成与上传
+- 可根据需要，结合自动化流程完成接口文档的自动化构建
 
 2. `yapi`
 - 运行生成文档后，会自动同步到 `yapi` 平台
