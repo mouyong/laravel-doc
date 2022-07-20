@@ -149,7 +149,7 @@ class OemTest extends TestCase
 如有使用疑问，可邮件联系我
 
 
-## :heart: Sponsor me 
+## :heart: 赞助
 
 [![Sponsor me](https://github.com/mouyong/mouyong/blob/master/sponsor-me.svg?raw=true)](https://github.com/sponsors/mouyong)
 
