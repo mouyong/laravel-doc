@@ -28,8 +28,11 @@ class ApifoxJobs  implements ShouldQueue, \ArrayAccess, \IteratorAggregate, \Cou
 
     public function handle()
     {
-        $result = $this->upload();
+        if (!Arr::get($this->config, 'apifox.enable', false)) {
+            return;
+        }
 
+        $result = $this->upload();
         $this->line('更新文档数量 '.$result['data.apiCollection.item.updateCount']);
     }
 

@@ -23,6 +23,7 @@ return [
 
     // apifox
     'apifox' => [
+        'enable' => false,
         'account' => '',
         'password' => '',
         'project' => null,
