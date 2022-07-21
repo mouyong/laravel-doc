@@ -112,12 +112,35 @@ class ApifoxJobs  implements ShouldQueue, \ArrayAccess, \IteratorAggregate, \Cou
         ];
     }
 
+    public function getAutoImportOption()
+    {
+        $result = $this->get('/api/v1/auto-import-settings?locale=zh-CN', [
+            'headers' => $this->getHeaders(),
+            'form_params' => [
+                'data' => $this->convertCurrentApis(),
+            ],
+        ]);
+
+        // dd($result['data']);
+        return $result['data'];
+    }
+
     public function upload()
     {
+        $option = $this->getAutoImportOption();
+
         return $this->post('/api/v1/import-data?locale=zh-CN', [
             'headers' => $this->getHeaders(),
             'form_params' => [
                 'data' => $this->convertCurrentApis(),
+                'apiOverwriteMode' => $option['apiOverwriteMode'],
+                'schemaOverwriteMode' => $option['schemaOverwriteMode'],
+                'docOverwriteMode' => $option['docOverwriteMode'],
+                'apiFolderId' => $option['apiFolderId'],
+                'schemaFolderId' => $option['schemaFolderId'],
+                'importFullPath' => $option['importFullPath'],
+                'autoImport' => true,
+                'autoImportId' => $option['id'],
             ],
         ]);
     }
