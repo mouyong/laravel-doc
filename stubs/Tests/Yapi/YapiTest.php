@@ -4,6 +4,7 @@ namespace Tests\Yapi;
 
 use Tests\TestCase;
 use Cblink\YApiDoc\YapiJobs;
+use MouYong\LaravelDoc\Jobs\ApifoxJobs;
 
 class YapiTest extends TestCase
 {
@@ -12,7 +13,8 @@ class YapiTest extends TestCase
      */
     public function test_upload()
     {
-        dispatch_sync(new YapiJobs(config('yapi')));
+        dispatch_sync(new YapiJobs());
+        dispatch_sync(new ApifoxJobs());
 
         $this->assertTrue(true);
     }

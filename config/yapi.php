@@ -21,6 +21,13 @@ return [
         ]
     ],
 
+    // apifox
+    'apifox' => [
+        'account' => '',
+        'password' => '',
+        'project' => null,
+    ],
+
     'openapi' => [
         'enable' => true, // generate openapi.json
         'path' => public_path('openapi.json'),
