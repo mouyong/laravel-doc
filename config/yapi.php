@@ -7,7 +7,7 @@ return [
     // yap请求地址
     // 'base_url' => 'http://xxxxxxxx/', // custom yapi url
     // 'base_url' => 'http://yapi.smart-xwork.cn/', // yapi url
-    'base_url' => false, // disable upload to yapi
+    'base_url' => env('YAPI_BASE_URL', false), // disable upload to yapi
     // 文档合并方式，"normal"(普通模式) , "good"(智能合并), "merge"(完全覆盖)
     'merge' => 'merge',
 
@@ -16,21 +16,21 @@ return [
     // 2. 查看项目设置 -> token配置 -> token (点击复制按钮获取 项目 token)
     'config' => [
         'default' => [
-            'id' => 1,
-            'token' => '',
+            'id' => env('YAPI_PROJECT_ID'),
+            'token' => env('YAPI_TOKEN'),
         ]
     ],
 
     // apifox
     'apifox' => [
-        'enable' => false,
-        'account' => '',
-        'password' => '',
-        'project' => null,
+        'enable' => env('APIFOX_ENABLE', false),
+        'account' => env('APIFOX_ACCOUNT'),
+        'password' => env('APIFOX_PASSWORD'),
+        'project_id' => env('APIFOX_PROJECT_ID'),
     ],
 
     'openapi' => [
-        'enable' => true, // generate openapi.json
+        'enable' => env('OPENAPI_ENABLE', true), // generate openapi.json
         'path' => public_path('openapi.json'),
     ],
 
