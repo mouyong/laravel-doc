@@ -7,6 +7,13 @@ use Cblink\YApi\YApiRequest;
 
 class YapiJobs extends \Cblink\YApiDoc\YapiJobs
 {
+    public $config;
+
+    public function __construct(array $config = [])
+    {
+        $this->config = $config ?: config('yapi', []);
+    }
+
     public function upload($project, $config, $swagger)
     {
         $swaggerContent = json_encode($swagger, 448, 512);
