@@ -12,7 +12,7 @@ use ZhenMu\Support\Traits\DefaultClient;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class ApifoxJobs  implements ShouldQueue, \ArrayAccess, \IteratorAggregate, \Countable
+class ApifoxJobs implements ShouldQueue, \ArrayAccess, \IteratorAggregate, \Countable
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -23,7 +23,7 @@ class ApifoxJobs  implements ShouldQueue, \ArrayAccess, \IteratorAggregate, \Cou
 
     public function __construct(array $config = [])
     {
-        $this->config = empty($config) ? config('yapi', []) : $config;
+        $this->config = $config ?: config('yapi', []);
     }
 
     public function handle()
@@ -121,7 +121,6 @@ class ApifoxJobs  implements ShouldQueue, \ArrayAccess, \IteratorAggregate, \Cou
             ],
         ]);
 
-        // dd($result['data']);
         return $result['data'];
     }
 
