@@ -24,6 +24,6 @@ class OpenapiController extends Controller
             return \response()->json();
         }
 
-        return \response();
+        return \response('示例接口无响应内容');
     }
 }
